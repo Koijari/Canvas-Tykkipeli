@@ -1,5 +1,17 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    height: 97vh;
+    width: 97vw;
+    margin-top: 1vh;
+    border: 1px solid;
+    background-color: antiquewhite;
 }
