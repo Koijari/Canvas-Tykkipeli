@@ -6,6 +6,42 @@
 body {
     display: flex;
     justify-content: center;
+    background-color: lightskyblue;
+}
+
+#etusivu {
+    width: 70vw;
+    height: 30vw;
+    margin-top: 10vh;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.2em;
+    color: lawngreen;
+    background-image: url('kuvat/etusivu.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#pl1, #pl2 {
+    display: inline-block;
+    margin-top: 15%;
+    margin-left: 10%;
+}
+
+#p1, #p2 {
+    font-size: 1.2em;
+    background-color: lightseagreen;
+    color: white;
+}
+
+input[type='submit'] {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1em;
+    padding: 15px 20px;
+    margin-top: 2%;
+    margin-left: 44%;
+    border-radius: 5px;
+    background-color: lightseagreen;
+    color: lawngreen;
 }
 
 canvas {
