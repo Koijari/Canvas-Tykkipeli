@@ -9,18 +9,20 @@
 </head>
 <body>
     <form id="etusivu">
-        <div id="pl1">
-            <label for="p1">Pelaaja1</label><br>
+        <div id="pelaajat">
+            <label for="p1">Pelaaja1</label>
             <input type="text" id="p1" name="p1" required size="15">
-        </div>
-        <div id="pl2">
-            <label for="p2">Pelaaja2</label><br>
+            <label for="p2">Pelaaja2</label>
             <input type="text" id="p2" name="p1" required size="15">
         </div>
-        <br>
-        <input type="submit" id="play" value="Aloita">
+        <input type="submit" id="pelaa" value="Aloita">
     </form>
-
-    <script src="tykki.js"></script>
+    <script>
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.body.innerHTML = '';
+            window.location.href = 'peli.html';
+        })
+    </script>
 </body>
 </html>
