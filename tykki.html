@@ -199,6 +199,10 @@ class Ammus {
             kenttaCtx.globalCompositeOperation = 'destination-out';
             kenttaCtx.beginPath();
             kenttaCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
+            kenttaCtx.fillRect(this.x,terrainHeight,Math.random()*50,Math.random()*50);
+
+            kenttaCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
+            kenttaCtx.arc(this.x, terrainHeight, Math.random()*50, 0, Math.PI * 2);
             kenttaCtx.fill();
             kenttaCtx.globalCompositeOperation = 'source-over';
 
