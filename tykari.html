@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="kuvat/tykki.png" type="image/x-icon">
+    <title>Tykkipeli</title>
+    <style>
+        body {
+            background-color: green;
+        }
+        #arvot {     
+            position: fixed;
+            left: 30%;
+            bottom: 1%;
+        }
+        button {
+            font-size: 1em;
+            background-color: orange;
+            color: yellow;
+            margin: 0 4px;
+        }
+        button:active {
+            background-color: yellow;
+            color: black;
+        }
+        canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            border: 1px solid black;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div style="display:none;">
+        <img id="tykki1" width="50" height="50" src="kuvat/lavetti.png">
+        <img id="tykki2" width="50" height="50" src="kuvat/lavetti2.png">
+    </div>
+
+    <!--väri on nyt määritelty tähän,  siirtääkö css tiedostoon-->
+    <canvas id="kenttaCanvas" style="background-color: skyblue" ></canvas>
+    
+    <canvas id="piirtoCanvas"></canvas>
+
+<div id="arvot">
+        <input type="number" id="kulma" placeholder="Kulma" required>
+        <input type="number" id="ruuti" placeholder="Ruuti" required>
+        <button type="submit" onclick="tallennaArvot()">PUM!</button>
+    </div>    
+
+    <script src="kenttaJaPinta.js"></script>
+</body>
+</html>
