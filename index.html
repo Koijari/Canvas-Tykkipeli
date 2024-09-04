@@ -4,25 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="tykki.css">
-    
+    <link rel="shortcut icon" href="kuvat/tykki.png" type="image/x-icon">
     <title>Tykkipeli</title>
 </head>
 <body>
-    <form id="etusivu">
+
+    <div id="etusivu">
         <div id="pelaajat">
             <label for="p1">Pelaaja1</label>
             <input type="text" id="p1" name="p1" required size="15">
             <label for="p2">Pelaaja2</label>
-            <input type="text" id="p2" name="p1" required size="15">
+            <input type="text" id="p2" name="p1" required size="15"><br>
+            <button onclick="tallennaNimet()">Pelaa!</a></button>
         </div>
-        <input type="submit" id="pelaa" value="Aloita">
-    </form>
-    <script>
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            document.body.innerHTML = '';
-            window.location.href = 'peli.html';
-        })
-    </script>
+    </div>
+    <Script src="kenttaJaPinta.js"></Script>
 </body>
 </html>
