@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -15,9 +16,9 @@ body {
     align-items: center;
     width: 91vw;
     height: 37vw;
-    margin-top: 10vh;
+    margin-top: 8vh;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: lawngreen;
     background-image: url('kuvat/etusivu.png');
     background-repeat: no-repeat;
@@ -25,28 +26,31 @@ body {
 }
 
 #pelaajat {
-    margin-top: 25vh;
-}
-
-#pelaa {
-    height: 60px;
-    width: 110px;
-    margin-bottom: 10vh;
+    margin-top: 20vh;
 }
 
 #p1, #p2 {
-    font-size: 1em;
+    font-size: 1.5em;
     background-color: lightseagreen;
     color: white;
 }
 
-input[type='submit'] {
+button {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 1em;
     padding: 15px 20px;
-    margin-top: 2%;
+    margin-top: 4%;
     margin-left: 44%;
     border-radius: 5px;
     background-color: lightseagreen;
     color: lawngreen;
+}
+
+@media only screen and (max-width: 650px) {
+    body {
+        clear: both;
+    }
+    #etusivu, #p1, #p2 {
+        font-size: 1em;
+    }
 }
