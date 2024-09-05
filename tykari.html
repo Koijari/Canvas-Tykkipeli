@@ -44,15 +44,15 @@
 
     <!--väri on nyt määritelty tähän,  siirtääkö css tiedostoon-->
     <canvas id="kenttaCanvas" style="background-color: skyblue" ></canvas>
-    
+    <canvas id="tykkiCanvas"></canvas>
     <canvas id="piirtoCanvas"></canvas>
 
-<div id="arvot">
-    <input type="number" id="kulma" placeholder="Kulma" required>
-    <input type="number" id="ruuti" placeholder="Ruuti" required>
-    <button type="submit" onclick="tallennaArvot()">PUM!</button>
-    <button id="paluu">Etusivu</button>
-</div>    
+    <div id="arvot">
+        <input type="number" id="kulma" placeholder="Kulma" required>
+        <input type="number" id="ruuti" placeholder="Ruuti" required>
+        <button type="submit" onclick="tallennaArvot()">PUM!</button>
+        <button id="paluu">Etusivu</button>
+    </div>   
 
     <script src="kenttaJaPinta.js"></script>
 </body>
