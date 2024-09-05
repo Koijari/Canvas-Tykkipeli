@@ -6,7 +6,9 @@
     <link rel="shortcut icon" href="kuvat/tykki.png" type="image/x-icon">
     <title>Tykkipeli</title>
     <style>
-        body {
+        body, html {
+            display: flex;
+            justify-content: center;
             background-color: green;
         }
         #arvot {     
@@ -28,7 +30,7 @@
             position: absolute;
             left: 0;
             top: 0;
-            border: 1px solid black;
+            /*border: 1px solid black;*/
         }
     </style>
     
@@ -46,10 +48,11 @@
     <canvas id="piirtoCanvas"></canvas>
 
 <div id="arvot">
-        <input type="number" id="kulma" placeholder="Kulma" required>
-        <input type="number" id="ruuti" placeholder="Ruuti" required>
-        <button type="submit" onclick="tallennaArvot()">PUM!</button>
-    </div>    
+    <input type="number" id="kulma" placeholder="Kulma" required>
+    <input type="number" id="ruuti" placeholder="Ruuti" required>
+    <button type="submit" onclick="tallennaArvot()">PUM!</button>
+    <button id="paluu">Etusivu</button>
+</div>    
 
     <script src="kenttaJaPinta.js"></script>
 </body>
