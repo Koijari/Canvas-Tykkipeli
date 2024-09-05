@@ -5,13 +5,12 @@ const piirtoCtx = kenttaCanvas.getContext('2d');
 const kanuuna1 = document.getElementById("tykki1");
 const kanuuna2 = document.getElementById("tykki2");
 
-var kulma, ruuti;
 pelaaja1 = sessionStorage.getItem('p1');
 pelaaja2 = sessionStorage.getItem('p2');
 
 function resizeCanvas(){ //cancaksen koko on sama kuin ikkunan koko
     kenttaCanvas.width = window.innerWidth*0.99;
-    kenttaCanvas.height = window.innerHeight*0.92; //korkeutta mutettu, syöttökentät mahtuu ruutuun
+    kenttaCanvas.height = window.innerHeight*0.92; //korkeutta muutettu, syöttökentät mahtuu ruutuun
     piirtoCanvas.width = window.innerWidth*0.99;
     piirtoCanvas.height = window.innerHeight*0.92;
 }
@@ -20,13 +19,59 @@ function resizeCanvas(){ //cancaksen koko on sama kuin ikkunan koko
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-// Pelaajanimet etusivulta
-function tallennaNimet() {
-    p1 = document.getElementById('p1').value;
-    p2 = document.getElementById('p2').value;
-    sessionStorage.setItem('p1', p1);
-    sessionStorage.setItem('p2', p2);
-    window.location.href = 'tykari.html'
+// Tykki-luokka
+class TykinPutki {
+    constructor(x, y, angl) { //lisätty ampumasuunta *len*
+        this.x = x;
+        this.y = y;
+        this.angl = angl;
+        this.kulma = 60;
+        this.ruuti = 20;
+    }
+    //tykin putken piirto
+    draw() {
+        kenttaCtx.lineWidth = 10;
+        kenttaCtx.beginPath();
+        kenttaCtx.moveTo(this.x, this.y);
+        const tykin_putkiX = this.x + Math.cos(this.kulma * Math.PI / 180) * this.angl;
+        const tykin_putkiY = this.y - Math.sin(this.kulma * Math.PI / 180) * 40;
+        kenttaCtx.lineTo(tykin_putkiX, tykin_putkiY);
+        kenttaCtx.stroke();
+    }
+    //uusi kulma säätöä varten
+    setAngle(uusiKulma) {
+        this.kulma = uusiKulma;
+    }
+    //uusi ruuti
+    setPower(uusiRuuti){
+        this.ruuti = uusiRuuti;
+    }
+}
+
+// Ammus-luokka
+class Ammus {
+    constructor(x, y, kulma, ruuti) {
+        this.x = x;
+        this.y = y;
+        this.vx = Math.cos(kulma * Math.PI / 180) * ruuti;
+        this.vy = -Math.sin(kulma * Math.PI / 180) * ruuti;
+    }
+
+    update() {
+        this.vy += painovoima;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vx *= kitka;
+        this.vy *= kitka;
+        this.checkCollision();
+    }
+
+    draw() {
+        ammusCtx.beginPath();
+        ammusCtx.arc(this.x, this.y, 5, 0, Math.PI * 2);
+        ammusCtx.fillStyle = 'black';
+        ammusCtx.fill();
+    }
 }
 
 //Syöttökenttien arvot ja tyhjennys
@@ -37,9 +82,11 @@ function tallennaArvot() {
     document.getElementById('ruuti').value = '';
 }
 
+
+
 function drawTerrain(){
 
-    const kenttaLeveys = kenttaCanvas.width; //
+    const kenttaLeveys = kenttaCanvas.width;
     const kenttaKorkeus = kenttaCanvas.height;
     
 
@@ -86,17 +133,18 @@ function drawTerrain(){
     drawCloud(Math.random()*(kenttaLeveys-60), 100, 60); //toinenki pilvi
     
     //eka lavetti ja pelaajanimi
-    piirtoCtx.font = "bold 20px Comic sans MS"
-    piirtoCtx.fillStyle = 'yellow'
-    piirtoCtx.fillText(pelaaja1, kenttaLeveys*0.02, kenttaKorkeus*0.895)
+    piirtoCtx.font = "bold 20px Comic sans MS";
+    piirtoCtx.fillStyle = 'red';
+    piirtoCtx.fillText(pelaaja1, kenttaLeveys*0.01, kenttaKorkeus*0.895);
+    tykinPutki1.draw();
     piirtoCtx.drawImage(kanuuna1, kenttaLeveys*0.04, kenttaKorkeus*0.895, 40, 40);
-
+    
     //toka lavetti (peilikuva)
-    piirtoCtx.font = "bold 20px Comic sans MS"
-    piirtoCtx.fillText(pelaaja2, kenttaLeveys*0.95, kenttaKorkeus*0.895)
-    piirtoCtx.drawImage(kanuuna2, kenttaLeveys*0.92, kenttaKorkeus*0.895, 40, 40);
+    piirtoCtx.font = "bold 20px Comic sans MS";
+    piirtoCtx.fillText(pelaaja2, kenttaLeveys*0.95, kenttaKorkeus*0.895);
+    tykinPutki2.draw();
+    piirtoCtx.drawImage(kanuuna2, kenttaLeveys*0.93, kenttaKorkeus*0.895, 40, 40);
 }
-
 
 //piirretään pilvi
 function drawCloud(x, y, koko) {
@@ -114,5 +162,13 @@ function drawCloud(x, y, koko) {
     kenttaCtx.closePath();
     kenttaCtx.fill();
 }
+const tykinPutki1 = new TykinPutki(piirtoCanvas.width*0.05, piirtoCanvas.height*0.95, 60);
+const tykinPutki2 = new TykinPutki(piirtoCanvas.width*0.95, piirtoCanvas.height*0.95, -60);
 
-drawTerrain();  // tee uusi kenttä
+document.addEventListener('DOMContentLoaded', (event) => {
+    drawTerrain();  // tee uusi kenttä
+});
+document.getElementById('paluu').addEventListener('click', () => {
+    sessionStorage.clear('p1', 'p2');
+    window.location.href = 'index.html';
+});
