@@ -12,12 +12,28 @@
     <div id="etusivu">
         <div id="pelaajat">
             <label for="p1">Pelaaja1</label>
-            <input type="text" id="p1" name="p1" required size="15">
+            <input type="text" id="p1" name="p1" required maxlength="6" size="6">
             <label for="p2">Pelaaja2</label>
-            <input type="text" id="p2" name="p1" required size="15"><br>
+            <input type="text" id="p2" name="p1" required maxlength="6" size="6"><br>
             <button onclick="tallennaNimet()">Pelaa!</a></button>
         </div>
     </div>
-    <Script src="kenttaJaPinta.js"></Script>
+
+    <Script>
+        // Pelaajanimet etusivulta
+        function tallennaNimet() {
+            p1 = document.getElementById('p1').value;
+            p2 = document.getElementById('p2').value;
+            if (p1 == '' || p2 == '') { //ErrorHandleri
+                alert('Anna molemmat pelaajanimet')
+                window.location.href = 'index.html'
+            } else {
+                sessionStorage.setItem('p1', p1); 
+                sessionStorage.setItem('p2', p2);
+                window.location.href = 'tykari.html'
+            }
+        }
+    </Script>
+
 </body>
 </html>
