@@ -121,17 +121,27 @@ class Ammus {
     checkCollision() {
         const terrainHeight = getTerrainHeightAt(this.x); // Haetaan maaston korkeus tässä x-koordinaatissa
         if (this.y > terrainHeight) { // Tarkistetaan osuma maastoon
-            const craterRadius = 25; // Kolon säde
+            const craterRadius = 25; 
+            
             kenttaCtx.globalCompositeOperation = 'destination-out';
             kenttaCtx.beginPath();
             kenttaCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
-            //kenttaCtx.fillRect(this.x,terrainHeight,Math.random()*50,Math.random()*50);
-            
-            //kenttaCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
-            kenttaCtx.arc(this.x, terrainHeight, Math.random()*50, 0, Math.PI * 2);
             kenttaCtx.fill();
             kenttaCtx.globalCompositeOperation = 'source-over';
-
+    
+            const rajahdyskuva = new Image();
+            rajahdyskuva.src = '../kuvat/blast.gif'; 
+            rajahdyskuva.onload = () => {
+                
+                tykkiCtx.drawImage(rajahdyskuva, this.x - 40, terrainHeight - 40, 100, 100);
+                
+                
+                setTimeout(() => {
+                   
+                    tykkiCtx.clearRect(this.x - 40, terrainHeight - 40, 100, 100);
+                }, 2000);
+            };
+    
             return true;
         }
         return false;
