@@ -104,7 +104,11 @@ class Ammus {
 
     update() {
         this.vy += painovoima;
-        this.x += this.vx;
+        if (pelaajaNyt === pelaajat.pelaaja2) {
+            this.x += this.vx;
+        } else {
+            this.x += -this.vx;
+        }
         this.y += this.vy;
         this.vx *= kitka;
         this.vy *= kitka;
@@ -155,12 +159,12 @@ function tallennaArvot() {
     ruuti = document.getElementById('ruuti').value;
     document.getElementById('kulma').value = '';
     document.getElementById('ruuti').value = '';
-    if (pelaajat.pelaaja1) {
+    if (pelaajaNyt === pelaajat.pelaaja1) {
         tykinPutki1.setAngle(kulma);    
         piirtoCtx.clearRect(0,0,kenttaCanvas.width,kenttaCanvas.height);
         tykinPutki1.draw();
     } else {
-        tykinPutki2.setAngle(-kulma);
+        tykinPutki2.setAngle(kulma);
         piirtoCtx.clearRect(0,0,kenttaCanvas.width,kenttaCanvas.height);
         tykinPutki2.draw();
     }
@@ -177,11 +181,11 @@ document.addEventListener('keydown', function(event) {
         
 
         } else if (pelaajaNyt === pelaajat.pelaaja2) {
-                const ammus = new Ammus(tykinPutki2.x, tykinPutki2.y - 10, kulma || tykinPutki2.kulma, ruuti || tykinPutki2.ruuti);
-                ammukset.push(ammus); 
-                vuoronVaihto();       
+            const ammus = new Ammus(tykinPutki2.x, tykinPutki2.y - 10, kulma || tykinPutki2.kulma, ruuti || tykinPutki2.ruuti);
+            ammukset.push(ammus); 
+            vuoronVaihto();       
         }
-    }     
+    }
 });
 
 
