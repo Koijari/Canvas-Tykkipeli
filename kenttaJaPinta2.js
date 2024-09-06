@@ -134,7 +134,7 @@ class Ammus {
             kenttaCtx.globalCompositeOperation = 'source-over';
     
             const rajahdyskuva = new Image();
-            rajahdyskuva.src = '../kuvat/blast.gif'; 
+            rajahdyskuva.src = 'kuvat/blast.gif'; 
             rajahdyskuva.onload = () => {
                 
                 tykkiCtx.drawImage(rajahdyskuva, this.x - 40, terrainHeight - 40, 100, 100);
