@@ -160,16 +160,20 @@ function tallennaArvot() {
 document.addEventListener('keydown', function(event) {
     
     if (event.key === 'Enter') {
-        if (pelaajat.pelaaja1) {
+        if (pelaajaNyt === pelaajat.pelaaja1) {
             const ammus = new Ammus(tykinPutki1.x, tykinPutki1.y - 10, kulma || tykinPutki1.kulma, ruuti || tykinPutki1.ruuti);
             ammukset.push(ammus);
             vuoronVaihto();
-        }
-        } else if (pelaajat.pelaaja2) {
+        
+
+        } else if (pelaajaNyt === pelaajat.pelaaja2) {
                 const ammus = new Ammus(tykinPutki2.x, tykinPutki2.y - 10, kulma || tykinPutki2.kulma, ruuti || tykinPutki2.ruuti);
-                ammukset.push(ammus);        
-            }
+                ammukset.push(ammus); 
+                vuoronVaihto();       
+        }
+    }     
 });
+
 
 
 function drawTerrain(){
