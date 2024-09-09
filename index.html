@@ -23,7 +23,7 @@
         let start = new Audio('aanet/StartPage.mp3');
         start.loop = true;
         start.volume = 0.1;
-        window.addEventListener('load', () => {start.play()})
+        window.onload = () => {start.play()};
         // Pelaajanimet etusivulta
         function tallennaNimet() {
             p1 = document.getElementById('p1').value;
