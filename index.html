@@ -7,19 +7,23 @@
     <link rel="shortcut icon" href="kuvat/tykki.png" type="image/x-icon">
     <title>Tykkipeli</title>
 </head>
-<body>
+<body>    
 
     <div id="etusivu">
-        <div id="pelaajat">
-            <label for="p1">Pelaaja1</label>
-            <input type="text" id="p1" name="p1" required maxlength="6" size="6">
-            <label for="p2">Pelaaja2</label>
-            <input type="text" id="p2" name="p1" required maxlength="6" size="6"><br>
-            <button onclick="tallennaNimet()">Pelaa!</a></button>
+        <div id="pelaajat">            
+                <label for="p1">Pelaaja1</label>
+                <input type="text" id="p1" name="p1" required maxlength="6" size="6" onfocus="">
+                <label for="p2">Pelaaja2</label>
+                <input type="text" id="p2" name="p1" required maxlength="6" size="6"><br>
+                <button onclick="tallennaNimet()">Pelaa!</a></button>
         </div>
     </div>
-
+    
     <Script>
+        let start = new Audio('aanet/StartPage.mp3');
+        start.loop = true;
+        start.volume = 0.1;
+        window.addEventListener('load', () => {start.play()})
         // Pelaajanimet etusivulta
         function tallennaNimet() {
             p1 = document.getElementById('p1').value;
