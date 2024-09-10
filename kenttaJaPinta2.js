@@ -12,6 +12,10 @@ const tykkiCtx = tykkiCanvas.getContext('2d');
 const painovoima = 0.7;
 const kitka = 0.9; + Math.random()/10;
 
+/*testiarvot
+const painovoima = 0.6;
+const kitka = 0.99;*/
+
 let osumaTykkiin = false;//estämään tuplaosumat
 
 // maaston koordinaattipisteet
