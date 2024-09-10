@@ -136,7 +136,7 @@ class Ammus {
     
             //  räjähdyskuva
             const rajahdyskuva = new Image();
-            rajahdyskuva.src = '..kuvat/blast.gif'; 
+            rajahdyskuva.src = 'kuvat/blast.gif'; 
             rajahdyskuva.onload = () => {
                 // räjähdyskuva
                 
