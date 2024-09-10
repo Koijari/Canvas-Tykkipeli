@@ -9,7 +9,7 @@ const kanuuna2 = document.getElementById("tykki2");
 const tykkiCanvas = document.getElementById('tykkiCanvas');
 const tykkiCtx = tykkiCanvas.getContext('2d');
 
-const painovoima = 9.81;
+const painovoima = 0.7;
 const kitka = 0.9 + Math.random()/10;
 
 // maaston koordinaattipisteet
