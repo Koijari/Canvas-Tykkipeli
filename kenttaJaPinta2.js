@@ -10,7 +10,7 @@ const tykkiCanvas = document.getElementById('tykkiCanvas');
 const tykkiCtx = tykkiCanvas.getContext('2d');
 
 const painovoima = 0.7;
-const kitka = 0.9 + Math.random()/10;
+const kitka = 0.99;// + Math.random()/10;
 
 // maaston koordinaattipisteet
 const terrainPoints = [];
