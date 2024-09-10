@@ -9,7 +9,9 @@
 </head>
 <body>    
 
-    <audio src="aanet/StartPage.mp3" id="kaynnistys" preload="auto" style="display: none;" autoplay></audio>
+    <audio id="kaynnistys" style="display: none;" autoplay>
+        <source src="aanet/StartPage.mp3" type="audio/mp3">
+    </audio>
 
     <div id="etusivu">
         <div id="pelaajat">            
@@ -24,11 +26,6 @@
     <footer>Thanks for music and sounds to www.fesliyanstudios.com</footer>
 
     <Script>
-        //Alkurummutukset
-        var start = document.getElementById('kaynnistys')
-        start.loop = true;
-        start.volume = 0.1;
-
         // Pelaajanimet etusivulta
         function tallennaNimet() {
             p1 = document.getElementById('p1').value;
