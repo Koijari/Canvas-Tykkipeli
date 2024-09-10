@@ -134,11 +134,11 @@ class Ammus {
             const craterRadius = 40; // Kolon säde
     
             // Tee reikä maastoon 
-            terrainCtx.globalCompositeOperation = 'destination-out';
-            terrainCtx.beginPath();
-            terrainCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
-            terrainCtx.fill();
-            terrainCtx.globalCompositeOperation = 'source-over';
+            kenttaCtx.globalCompositeOperation = 'destination-out';
+            kenttaCtx.beginPath();
+            kenttaCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
+            kenttaCtx.fill();
+            kenttaCtx.globalCompositeOperation = 'source-over';
     
             //  räjähdyskuva
             const rajahdyskuva = new Image();
