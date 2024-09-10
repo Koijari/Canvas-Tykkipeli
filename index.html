@@ -9,6 +9,8 @@
 </head>
 <body>    
 
+    <audio src="aanet/StartPage.mp3" id="kaynnistys" preload="auto" style="display: none;"></audio>
+
     <div id="etusivu">
         <div id="pelaajat">            
                 <label for="p1">Pelaaja1</label>
@@ -17,13 +19,17 @@
                 <input type="text" id="p2" name="p1" required maxlength="6" size="6"><br>
                 <button onclick="tallennaNimet()">Pelaa!</a></button>
         </div>
-    </div>
-    
+    </div>    
+
+    <footer>Thanks for music and sounds to www.fesliyanstudios.com</footer>
+
     <Script>
-        let start = new Audio('aanet/StartPage.mp3');
+        //Alkurummutukset
+        var start = document.getElementById('kaynnistys')
         start.loop = true;
         start.volume = 0.1;
-        window.onload = () => {start.play()};
+        start.play();
+
         // Pelaajanimet etusivulta
         function tallennaNimet() {
             p1 = document.getElementById('p1').value;
