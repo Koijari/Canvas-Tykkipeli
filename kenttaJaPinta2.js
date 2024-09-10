@@ -125,30 +125,63 @@ class Ammus {
     checkCollision() {
         const terrainHeight = getTerrainHeightAt(this.x); // Haetaan maaston korkeus tässä x-koordinaatissa
         if (this.y > terrainHeight) { // Tarkistetaan osuma maastoon
-            const craterRadius = 25; 
-            
+            const craterRadius = 25; // Kolon säde
+    
+            // Tee reikä maastoon 
             kenttaCtx.globalCompositeOperation = 'destination-out';
             kenttaCtx.beginPath();
             kenttaCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
             kenttaCtx.fill();
             kenttaCtx.globalCompositeOperation = 'source-over';
     
+            //  räjähdyskuva
             const rajahdyskuva = new Image();
-            rajahdyskuva.src = 'kuvat/blast.gif'; 
+            rajahdyskuva.src = '../blast.gif'; 
             rajahdyskuva.onload = () => {
+                // räjähdyskuva
                 
                 tykkiCtx.drawImage(rajahdyskuva, this.x - 40, terrainHeight - 40, 100, 100);
-                
+    
                 
                 setTimeout(() => {
-                   
                     tykkiCtx.clearRect(this.x - 40, terrainHeight - 40, 100, 100);
                 }, 2000);
             };
     
+            // Tarkista osuma toiseen tykkiin
+            this.checkCollision_Tykki(pelaajat.pelaaja1.lavetti,pelaajat.pelaaja1.nimi);
+            this.checkCollision_Tykki(pelaajat.pelaaja2.lavetti,pelaajat.pelaaja2.nimi);
+    
             return true;
         }
         return false;
+    }
+    checkCollision_Tykki(tykin_sijainti, pelaaja) { //Törmys toiseen tykkiin
+        const tykkiX = tykin_sijainti[0];
+        const tykkiY = tykin_sijainti[1];
+        const tykkiWidth = 100;  // Tykin leveys
+        const tykkiHeight = 100; // Tykin korkeus
+    
+        // Tarkistetaan, osuuko ammus tykkiin 
+        if (this.x > tykkiX && this.x < tykkiX + tykkiWidth &&
+            this.y > tykkiY && this.y < tykkiY + tykkiHeight) {
+            
+            tykkiCtx.fillStyle = "red"; //ilmoitus ko. asiasta
+            tykkiCtx.fillText(pelaaja + "n tykkiin osui!",tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.3);
+
+            setTimeout(()=>{
+
+            tykkiCtx.clearRect(tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.25,200,100)  ;
+
+            },2000);
+
+            
+            
+            //
+            tykkiCtx.clearRect(tykkiX, tykkiY, tykkiWidth, tykkiHeight);
+            //Tähän se romutettu tykki?
+        
+        }
     }
 }
 
