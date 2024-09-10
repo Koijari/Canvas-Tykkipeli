@@ -9,7 +9,7 @@
 </head>
 <body>    
 
-    <audio src="aanet/StartPage.mp3" id="kaynnistys" preload="auto" style="display: none;"></audio>
+    <audio src="aanet/StartPage.mp3" id="kaynnistys" preload="auto" style="display: none;" autoplay></audio>
 
     <div id="etusivu">
         <div id="pelaajat">            
@@ -28,7 +28,6 @@
         var start = document.getElementById('kaynnistys')
         start.loop = true;
         start.volume = 0.1;
-        start.play();
 
         // Pelaajanimet etusivulta
         function tallennaNimet() {
