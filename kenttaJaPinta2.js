@@ -74,12 +74,14 @@ const pelaajat = {
      pelaaja1 : {
         'nimi': sessionStorage.getItem('p1'),
         'lavetti': [piirtoCanvas.width*0.04, piirtoCanvas.height*0.91],
-        'putki': tykinPutki1
+        'putki': tykinPutki1,
+        'osumat': 0
     },
     pelaaja2 : {
         'nimi': sessionStorage.getItem('p2'),
         'lavetti': [piirtoCanvas.width*0.92, piirtoCanvas.height*0.91],
-        'putki': tykinPutki2
+        'putki': tykinPutki2,
+        'osumat': 0
     }
 }
 let pelaajaNyt = pelaajat.pelaaja1;
