@@ -125,7 +125,7 @@ class Ammus {
     checkCollision() {
         const terrainHeight = getTerrainHeightAt(this.x); // Haetaan maaston korkeus tässä x-koordinaatissa
         if (this.y > terrainHeight) { // Tarkistetaan osuma maastoon
-            const craterRadius = 25; // Kolon säde
+            const craterRadius = 40; // Kolon säde
     
             // Tee reikä maastoon 
             kenttaCtx.globalCompositeOperation = 'destination-out';
