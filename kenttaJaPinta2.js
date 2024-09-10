@@ -12,6 +12,8 @@ const tykkiCtx = tykkiCanvas.getContext('2d');
 const painovoima = 0.7;
 const kitka = 0.9; + Math.random()/10;
 
+let osumaTykkiin = false;//estämään tuplaosumat
+
 // maaston koordinaattipisteet
 const terrainPoints = [];
 
@@ -128,11 +130,11 @@ class Ammus {
             const craterRadius = 40; // Kolon säde
     
             // Tee reikä maastoon 
-            kenttaCtx.globalCompositeOperation = 'destination-out';
-            kenttaCtx.beginPath();
-            kenttaCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
-            kenttaCtx.fill();
-            kenttaCtx.globalCompositeOperation = 'source-over';
+            terrainCtx.globalCompositeOperation = 'destination-out';
+            terrainCtx.beginPath();
+            terrainCtx.arc(this.x, terrainHeight, craterRadius, 0, Math.PI * 2);
+            terrainCtx.fill();
+            terrainCtx.globalCompositeOperation = 'source-over';
     
             //  räjähdyskuva
             const rajahdyskuva = new Image();
@@ -149,30 +151,51 @@ class Ammus {
             };
     
             // Tarkista osuma toiseen tykkiin
-            this.checkCollision_Tykki(pelaajat.pelaaja1.lavetti,pelaajat.pelaaja1.nimi);
-            this.checkCollision_Tykki(pelaajat.pelaaja2.lavetti,pelaajat.pelaaja2.nimi);
+            this.checkCollision_Tykki(pelaajat.pelaaja1.lavetti,'pelaaja1');
+            this.checkCollision_Tykki(pelaajat.pelaaja2.lavetti,'pelaaja2');
     
             return true;
         }
         return false;
     }
     checkCollision_Tykki(tykin_sijainti, pelaaja) { //Törmys toiseen tykkiin
-        const tykkiX = tykin_sijainti[0];
-        const tykkiY = tykin_sijainti[1];
-        const tykkiWidth = 100;  // Tykin leveys
-        const tykkiHeight = 100; // Tykin korkeus
+        if (osumaTykkiin) {
+            return; // estää tuplaosuman
+        }
+            const tykkiX = tykin_sijainti[0];
+            const tykkiY = tykin_sijainti[1];
+            const tykkiWidth = 100;  // Tykin leveys
+            const tykkiHeight = 100; // Tykin korkeus
     
+        
         // Tarkistetaan, osuuko ammus tykkiin 
         if (this.x > tykkiX && this.x < tykkiX + tykkiWidth &&
             this.y > tykkiY && this.y < tykkiY + tykkiHeight) {
-            
+            let vastustaja = pelaaja === 'pelaaja1' ? 'pelaaja2' : 'pelaaja1';//vastustajan selvittäminen
+
+            osumaTykkiin = true;
             tykkiCtx.fillStyle = "red"; //ilmoitus ko. asiasta
-            tykkiCtx.fillText(pelaaja + "n tykkiin osui!",tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.3);
+            
+            
+                
+            pelaajat[vastustaja].osumat++;  // Lisätään yksi osuma
+
+            if(vastustaja ==='pelaaja1'){
+                tykkiCtx.clearRect(tykkiCanvas.width *0.2, 30, 160,60);
+                tykkiCtx.fillText(`Osumat ${pelaajat[vastustaja].nimi}: ${pelaajat[vastustaja].osumat}`, tykkiCanvas.width *0.2, tykkiCanvas.height *0.1);
+
+            }
+            else{
+                tykkiCtx.clearRect(tykkiCanvas.width- tykkiCanvas.width *0.2,30,160,60 );
+                tykkiCtx.fillText(`Osumat ${pelaajat[vastustaja].nimi}: ${pelaajat[vastustaja].osumat}`,
+                     tykkiCanvas.width- tykkiCanvas.width *0.2,  tykkiCanvas.height *0.1);
+            }
+            
 
             setTimeout(()=>{
 
             tykkiCtx.clearRect(tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.25,200,100)  ;
-
+            osumaTykkiin = false; 
             },2000);
 
             
