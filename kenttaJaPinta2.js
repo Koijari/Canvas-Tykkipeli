@@ -264,7 +264,7 @@ function drawTerrain(){
 
 
     
-    const kenttakuvat = ['kuvat/sora.png','kuvat/ruoho.png','kuvat/ruoho3.png','kuvat/kivi.png','kuvat/hiekka.png','james.png'];
+    const kenttakuvat = ['kuvat/sora.png','kuvat/ruoho.png','kuvat/ruoho3.png','kuvat/kivi.png','kuvat/hiekka.png'];
     
      const kenttaKuva = new Image();
      kenttaKuva.src = kenttakuvat[Math.floor(Math.random()* kenttakuvat.length)];
