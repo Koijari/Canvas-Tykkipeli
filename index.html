@@ -5,29 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="tykki.css">
     <link rel="shortcut icon" href="kuvat/tykki.png" type="image/x-icon">
-    <title>Tykkipeli</title>
+    <title>Tykärit</title>
 </head>
-<body>    
+<body>
 
-    <audio autoplay>
-        <source src="aanet/StartPage.mp3" type="audio/mp3">
-    </audio>
+    <button id="playBtn">&#x1F507;</button>
+    <audio id="pauke" preload="auto">        
+        <source src="aanet/StartPage.mp3" type="audio/mpeg">
+    </audio>    
 
     <div id="etusivu">
         <div id="pelaajat">            
-                <label for="p1">Pelaaja1</label>
-                <input type="text" id="p1" name="p1" required maxlength="6" size="6" onfocus="">
-                <label for="p2">Pelaaja2</label>
-                <input type="text" id="p2" name="p1" required maxlength="6" size="6"><br>
-                <button onclick="tallennaNimet()">Pelaa!</a></button>
+            <label for="p1">Pelaaja1</label>
+            <input type="text" id="p1" name="p1" required maxlength="6" size="6" onfocus="">
+            <label for="p2">Pelaaja2</label>
+            <input type="text" id="p2" name="p1" required maxlength="6" size="6"><br>
+            <button onclick="tallennaNimet()">Pelaa!</a></button>
         </div>
     </div>    
 
     <footer>Thanks for music and sounds to www.fesliyanstudios.com</footer>
 
     <Script>
-        alert('WARNING! Page contain autoplay music!');
-        
+        // painike ja elementti DOMissa
+        const soittoNappi = document.getElementById('playBtn');
+        const aaniElementti = document.getElementById('pauke');
+
+        // äänen tila
+        let soittoSoi = false;
+
+        // tapahtumankuuntelija painikkeelle
+        soittoNappi.addEventListener('click', function() {
+            if (soittoSoi) {
+                aaniElementti.pause();
+                soittoNappi.innerHTML = '&#x1F507;'; // ääni pois
+            } else {
+                aaniElementti.play(); // Soitetaan ääni
+                soittoNappi.innerHTML = '&#x1F50A;'; // ääni päällä
+            }
+            soittoSoi = !soittoSoi;
+        });
+
+        // painikkeen kuvake päivittyy kun pärinä loppuu
+        aaniElementti.addEventListener('ended', function() {
+            soittoNappi.innerHTML = '&#x1F507;'; // ääni pois
+            soittoSoi = false; // tilaksi false
+        });
+
         // Pelaajanimet etusivulta
         function tallennaNimet() {
             p1 = document.getElementById('p1').value;
@@ -44,4 +68,5 @@
     </Script>
 
 </body>
+</html>
 </html>
