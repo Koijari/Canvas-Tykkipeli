@@ -9,8 +9,8 @@ const kanuuna2 = document.getElementById("tykki2");
 const tykkiCanvas = document.getElementById('tykkiCanvas');
 const tykkiCtx = tykkiCanvas.getContext('2d');
 
-const painovoima = 0.7;
-const kitka = 0.9; + Math.random()/10;
+const painovoima = 9.81;
+const kitka = 1 + Math.random()/10;
 
 /*testiarvot
 const painovoima = 0.6;
