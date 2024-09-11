@@ -13,7 +13,7 @@ const painovoima = 9.81;
 const kitka = 1 + Math.random()/10;
 
 const aanet = {
-    'laukaus': new Audio('aanet/tykinLaukaus.mp3'),
+    'laukaus': new Audio('aanet/tykinlaukaus.mp3'),
     'huti': new Audio('aanet/osumaHuti.mp3'),
     'osuma': new Audio('aanet/tykkiOsuma.mp3'),
     'tausta': new Audio('aanet/StartPage.mp3')
