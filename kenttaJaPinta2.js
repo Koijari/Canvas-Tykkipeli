@@ -12,6 +12,13 @@ const tykkiCtx = tykkiCanvas.getContext('2d');
 const painovoima = 9.81;
 const kitka = 1 + Math.random()/10;
 
+const aanet = {
+    'laukaus': new Audio('aanet/tykinLaukaus.mp3'),
+    'huti': new Audio('aanet/osumaHuti.mp3'),
+    'osuma': new Audio('aanet/tykkiOsuma.mp3'),
+    'tausta': new Audio('aanet/StartPage.mp3')
+};
+
 /*testiarvot
 const painovoima = 0.6;
 const kitka = 0.99;*/
@@ -149,7 +156,7 @@ class Ammus {
                 // räjähdyskuva
                 
                 tykkiCtx.drawImage(rajahdyskuva, this.x - 40, terrainHeight - 40, 100, 100);
-    
+                aanet.laukaus.play();
                 
                 setTimeout(() => {
                     tykkiCtx.clearRect(this.x - 40, terrainHeight - 40, 100, 100);
