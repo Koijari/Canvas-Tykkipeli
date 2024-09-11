@@ -177,8 +177,8 @@ class Ammus {
         }
             const tykkiX = tykin_sijainti[0];
             const tykkiY = tykin_sijainti[1];
-            const tykkiWidth = 100;  // Tykin leveys
-            const tykkiHeight = 100; // Tykin korkeus
+            const tykkiWidth = 250;  // Tykin leveys
+            const tykkiHeight = 250; // Tykin korkeus
     
         
         // Tarkistetaan, osuuko ammus tykkiin 
