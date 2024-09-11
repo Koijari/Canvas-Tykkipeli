@@ -46,6 +46,12 @@ button {
     color: lawngreen;
 }
 
+#playBtn {
+    position: fixed;
+    top: 10px;
+    left: -30%;
+}
+
 footer {
     position: fixed;
     bottom: 0;
