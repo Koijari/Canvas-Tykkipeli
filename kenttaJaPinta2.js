@@ -263,75 +263,75 @@ function drawTerrain(){
     
 
 
-
-    const kenttakuvat = ['kuvat/sora.png','kuvat/ruoho.png','kuvat/ruoho3.png','kuvat/kivi.png','kuvat/hiekka.png'];
+    
+    const kenttakuvat = ['kuvat/sora.png','kuvat/ruoho.png','kuvat/ruoho3.png','kuvat/kivi.png','kuvat/hiekka.png','james.png'];
     
      const kenttaKuva = new Image();
      kenttaKuva.src = kenttakuvat[Math.floor(Math.random()* kenttakuvat.length)];
  
      kenttaKuva.onload = () => {
          
-         const kuvio = terrainCtx.createPattern(kenttaKuva, 'repeat');
+         const kuvio = kenttaCtx.createPattern(kenttaKuva, 'repeat');
 
 
         //rekvisiitta-aurinko, siirretty, ettei tule vuoren tai pilven päälle
-        terrainCtx.beginPath();
-        terrainCtx.arc(Math.random() * terrainCanvas.width ,100,40,0,2*Math.PI);
-        terrainCtx.fillStyle = "yellow";
-        terrainCtx.fill();
-        terrainCtx.stroke();
+        kenttaCtx.beginPath();
+        kenttaCtx.arc(Math.random() * kenttaCanvas.width ,100,40,0,2*Math.PI);
+        kenttaCtx.fillStyle = "yellow";
+        kenttaCtx.fill();
+        kenttaCtx.stroke();
 
-        drawCloud(Math.random()*(terrainCanvas.width-40), 100, 40); //piirrä pilvi parametrien mukaan    
+        drawCloud(Math.random()*(kenttaCanvas.width-40), 100, 40); //piirrä pilvi parametrien mukaan    
 
         // koordinaatit
         const pisteet = [
-            { x: 0, y: terrainCanvas.height*0.96 }, // aloituspiste
-            { x: terrainCanvas.width * 0.10, y: terrainCanvas.height*0.96 },//alussa tasainen tila tykille, onko riittävä
-            { x: terrainCanvas.width * 0.15, y: terrainCanvas.height - Math.random()*400 }, //random korkeudet tässä välissä
-            { x: terrainCanvas.width * 0.20, y: terrainCanvas.height - Math.random()*400 },// säätää voi vuorenhuippuja miltä tuntuu
-            { x: terrainCanvas.width * 0.30, y: terrainCanvas.height - Math.random()*500 },
-            { x: terrainCanvas.width * 0.55, y: terrainCanvas.height - Math.random()*500},
-            { x: terrainCanvas.width * 0.65, y: terrainCanvas.height - Math.random()*400 },
-            { x: terrainCanvas.width * 0.75, y: terrainCanvas.height - Math.random()*400 },
-            { x: terrainCanvas.width * 0.90, y: terrainCanvas.height*0.96 }, //lopussa myös tykille tila
-            { x: terrainCanvas.width, y: terrainCanvas.height*0.96 } // Lopetuspiste
+            { x: 0, y: kenttaCanvas.height*0.96 }, // aloituspiste
+            { x: kenttaCanvas.width * 0.10, y: kenttaCanvas.height*0.96 },//alussa tasainen tila tykille, onko riittävä
+            { x: kenttaCanvas.width * 0.15, y: kenttaCanvas.height - Math.random()*400 }, //random korkeudet tässä välissä
+            { x: kenttaCanvas.width * 0.20, y: kenttaCanvas.height - Math.random()*400 },// säätää voi vuorenhuippuja miltä tuntuu
+            { x: kenttaCanvas.width * 0.30, y: kenttaCanvas.height - Math.random()*500 },
+            { x: kenttaCanvas.width * 0.55, y: kenttaCanvas.height - Math.random()*500},
+            { x: kenttaCanvas.width * 0.65, y: kenttaCanvas.height - Math.random()*400 },
+            { x: kenttaCanvas.width * 0.75, y: kenttaCanvas.height - Math.random()*400 },
+            { x: kenttaCanvas.width * 0.90, y: kenttaCanvas.height*0.96 }, //lopussa myös tykille tila
+            { x: kenttaCanvas.width, y: kenttaCanvas.height*0.96 } // Lopetuspiste
         ];
 
-        terrainCtx.beginPath();
-        terrainCtx.moveTo(pisteet[0].x, pisteet[0].y); // aloituspiste
+        kenttaCtx.beginPath();
+        kenttaCtx.moveTo(pisteet[0].x, pisteet[0].y); // aloituspiste
 
         for (let i = 1; i < pisteet.length; i++) {
-            terrainCtx.lineTo(pisteet[i].x, pisteet[i].y);
+            kenttaCtx.lineTo(pisteet[i].x, pisteet[i].y);
             terrainPoints.push(pisteet[i]); // maaston pisteet tallennetaan
         }
 
         
         // viivan piirto pisteestä toiseen
         for (let i = 1; i < pisteet.length; i++) {
-            terrainCtx.lineTo(pisteet[i].x, pisteet[i].y);
+            kenttaCtx.lineTo(pisteet[i].x, pisteet[i].y);
         }
 
         // piirretään maaston alareuna takaisin oikeaan alakulmaan ja alas
-        terrainCtx.lineTo(terrainCanvas.width, terrainCanvas.height);
-        terrainCtx.lineTo(0, terrainCanvas.height);
-        terrainCtx.closePath();
+        kenttaCtx.lineTo(kenttaCanvas.width, kenttaCanvas.height);
+        kenttaCtx.lineTo(0, kenttaCanvas.height);
+        kenttaCtx.closePath();
 
         // kentän täyttö
-        terrainCtx.fillStyle = kuvio;
-        terrainCtx.fill();
+        kenttaCtx.fillStyle = kuvio;
+        kenttaCtx.fill();
         }
-        drawCloud(Math.random()*(terrainCanvas.width-60), 100, 60); //toinenki pilvi
+        drawCloud(Math.random()*(kenttaCanvas.width-60), 100, 60); //toinenki pilvi
         
         //eka lavetti ja pelaajanimi
         tykkiCtx.font = "bold 20px Comic sans MS";
         tykkiCtx.fillStyle = 'red';
-        tykkiCtx.fillText(pelaajat.pelaaja1.nimi, terrainCanvas.width*0.01, terrainCanvas.height*0.895);
+        tykkiCtx.fillText(pelaajat.pelaaja1.nimi, kenttaCanvas.width*0.01, kenttaCanvas.height*0.895);
         tykinPutki1.draw();
         tykkiCtx.drawImage(kanuuna1, pelaajat.pelaaja1.lavetti[0], pelaajat.pelaaja1.lavetti[1], 40, 40);
         
         //toka lavetti (peilikuva)
         tykkiCtx.font = "bold 20px Comic sans MS";
-        tykkiCtx.fillText(pelaajat.pelaaja2['nimi'], terrainCanvas.width*0.95, terrainCanvas.height*0.895);
+        tykkiCtx.fillText(pelaajat.pelaaja2['nimi'], kenttaCanvas.width*0.95, kenttaCanvas.height*0.895);
         tykinPutki2.draw();
         tykkiCtx.drawImage(kanuuna2, pelaajat.pelaaja2.lavetti[0], pelaajat.pelaaja2.lavetti[1], 40, 40);
 
