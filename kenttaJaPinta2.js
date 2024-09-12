@@ -268,7 +268,29 @@ function drawTerrain(){
     
      const kenttaKuva = new Image();
      kenttaKuva.src = kenttakuvat[Math.floor(Math.random()* kenttakuvat.length)];
- 
+     const kuvanNimi = kenttaKuva.src.split('/').pop(); // muuten tulee koko polku
+    
+     switch (kuvanNimi) {// vaihdetaan tausta kuvaan sopivakjsi
+        case 'sora.png': 
+            document.body.style.backgroundColor = 'chocolate';
+            break;
+        case 'ruoho.png': 
+            document.body.style.backgroundColor = 'green';
+            break;
+        case 'ruoho3.png': 
+            document.body.style.backgroundColor = 'darkgreen';
+            break;
+        case 'kivi.png': 
+            document.body.style.backgroundColor = 'darkgray';
+            break;
+        case 'hiekka.png': 
+            document.body.style.backgroundColor = 'SandyBrown';
+            break;
+        
+        default:
+            document.body.style.backgroundColor = 'green';
+            break;
+    }
      kenttaKuva.onload = () => {
          
          const kuvio = kenttaCtx.createPattern(kenttaKuva, 'repeat');
