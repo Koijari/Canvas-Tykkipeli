@@ -8,8 +8,9 @@ const tykkiCtx = tykkiCanvas.getContext('2d');
 const kanuuna = new Image();
 kanuuna.src = 'kuvat/tykki.png';
 
+
 const painovoima = 9.81;
-const kitka = 1 + Math.random()/10;
+let kitka = 1 + Math.random()/10;
 
 const aanet = {
     'laukaus': new Audio('aanet/tykinlaukaus.mp3'),
@@ -202,29 +203,41 @@ class Ammus {
             }            
 
             setTimeout(()=>{
-
-            tykkiCtx.clearRect(tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.25,200,100)  ;
-            osumaTykkiin = false; 
-            },2000);            
+                tykkiCtx.clearRect(tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.25,200,100)  ;
+                osumaTykkiin = false; 
+            },2000);
             
             //
             tykkiCtx.clearRect(tykkiX, tykkiY, tykkiWidth, tykkiHeight);
             //Tähän se romutettu tykki?
+            aanet.osuma.play();
             const romu = new Image()
             romu.src = 'kuvat/potslojo2.png';
+            
             romu.onload = () => {
-                // osumakuva
+                // räjähdyskuva
                 
-                tykkiCtx.drawImage(romu, this.x - 40, terrainHeight - 40, 100, 100);
-                aanet.osuma.play();
+                setTimeout( () => {
+                    tykkiCtx.drawImage(romu, tykkiX, tykkiY-20, 60, 60);
+                }, 2000);
+                
+                
                 
                 setTimeout(() => {
-                    tykkiCtx.clearRect(this.x - 40, terrainHeight - 40, 100, 100);
-                }, 2000);
+                    tykkiCtx.clearRect(tykkiX, tykkiY-20, 100, 100);
+                }, 4000);
             };
-        }
-    }
-}
+            setTimeout( () => {
+                kenttaCtx.clearRect(0,0, kenttaCanvas.width, kenttaCanvas.height);
+                drawTerrain();
+                kanuuna.onload();
+            }, 5000);
+            
+        
+        };
+        
+    };
+};
 
 //Syöttökenttien arvot ja tyhjennys
 function tallennaArvot() {
@@ -261,6 +274,8 @@ document.addEventListener('keydown', function(event) {
 });
 
 function drawTerrain(){
+
+    kitka = 1 + Math.random()/10;
     
     const kenttakuvat = ['kuvat/sora.png','kuvat/ruoho.png','kuvat/ruoho3.png','kuvat/kivi.png','kuvat/hiekka.png'];
     
@@ -343,12 +358,12 @@ function drawTerrain(){
         //eka lavetti ja pelaajanimi
         tykkiCtx.font = "bold 20px Comic sans MS";
         tykkiCtx.fillStyle = 'red';
-        tykkiCtx.fillText(pelaajat.pelaaja1.nimi, kenttaCanvas.width*0.01, kenttaCanvas.height*0.895);
+        tykkiCtx.fillText(pelaajat.pelaaja1.nimi, kenttaCanvas.width*0.01, kenttaCanvas.height*0.85);
         tykinPutki1.draw();
         
         //toka lavetti (peilikuva)
         tykkiCtx.font = "bold 20px Comic sans MS";
-        tykkiCtx.fillText(pelaajat.pelaaja2['nimi'], kenttaCanvas.width*0.95, kenttaCanvas.height*0.895);
+        tykkiCtx.fillText(pelaajat.pelaaja2['nimi'], kenttaCanvas.width*0.95, kenttaCanvas.height*0.85);
         tykinPutki2.draw();     
 }
 
