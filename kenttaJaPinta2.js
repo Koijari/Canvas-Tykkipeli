@@ -190,7 +190,9 @@ class Ammus {
             tykkiCtx.fillStyle = "red"; //ilmoitus ko. asiasta            
                 
             pelaajat[vastustaja].osumat++;  // Lisätään yksi osuma
-
+            
+            checkWin();
+            
             if(vastustaja ==='pelaaja1'){
                 tykkiCtx.clearRect(tykkiCanvas.width *0.2, 30, 160,60);
                 tykkiCtx.fillText(`Osumat ${pelaajat[vastustaja].nimi}: ${pelaajat[vastustaja].osumat}`, tykkiCanvas.width *0.2, tykkiCanvas.height *0.1);
@@ -417,6 +419,43 @@ function drawCloud(x, y, koko) {
 window.addEventListener('DOMContentLoaded', () => {
     drawTerrain();  // tee uusi kenttä
 });
+
+function checkWin() {
+    if (pelaajat.pelaaja1.osumat >= 3) {
+        showWin(pelaajat.pelaaja1.nimi);
+    } else if (pelaajat.pelaaja2.osumat >= 3) {
+        showWin(pelaajat.pelaaja2.nimi);
+    }
+}
+function showWin(voittaja){
+    document.body.innerHTML = '';
+
+    
+    const voittoIlmoitus = document.createElement('div');
+    voittoIlmoitus.id = "winMessage";
+    voittoIlmoitus.style.display = 'flex';
+    voittoIlmoitus.style.flexDirection = 'column';
+    voittoIlmoitus.style.justifyContent = 'center';
+    voittoIlmoitus.style.alignItems = 'center';
+    
+    voittoIlmoitus.style.fontSize = '48px';
+    voittoIlmoitus.style.color = 'yellow';
+    
+    voittoIlmoitus.style.backgroundColor = 'black';
+
+    voittoIlmoitus.innerHTML = `
+        <h1>${voittaja} voitti pelin!</h1>
+        <button id="aloitaUudelleen" style="padding: 10px 20px; font-size: 24px; cursor: pointer;">Aloita Uudelleen</button>
+    `;
+
+    
+    document.body.appendChild(voittoIlmoitus);
+
+    
+    document.getElementById('aloitaUudelleen').addEventListener('click', function() {
+        location.reload(); 
+    });
+}
 
 // loop
 function gameLoop() {
