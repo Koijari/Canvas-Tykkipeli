@@ -74,8 +74,8 @@ class TykinPutki {
     }
 }
 
-const tykinPutki1 = new TykinPutki(tykkiCanvas.width*0.05, tykkiCanvas.height*0.97, 60);
-const tykinPutki2 = new TykinPutki(tykkiCanvas.width*0.945, tykkiCanvas.height*0.97, -60);
+const tykinPutki1 = new TykinPutki(tykkiCanvas.width*0.055, tykkiCanvas.height*0.94, 60);
+const tykinPutki2 = new TykinPutki(tykkiCanvas.width*0.945, tykkiCanvas.height*0.94, -60);
 
 const pelaajat = {
     pelaaja1 : {
@@ -86,7 +86,7 @@ const pelaajat = {
    },
    pelaaja2 : {
        'nimi': sessionStorage.getItem('p2'),
-       'lavetti': [piirtoCanvas.width*0.96, piirtoCanvas.height*0.9],
+       'lavetti': [piirtoCanvas.width*0.93, piirtoCanvas.height*0.9],
        'putki': tykinPutki2,
        'osumat': 0
    }
@@ -161,7 +161,7 @@ class Ammus {
                 
                 setTimeout(() => {
                     tykkiCtx.clearRect(this.x - 40, terrainHeight - 40, 100, 100);
-                }, 2000);
+                }, 1900);
             };
     
             // Tarkista osuma toiseen tykkiin
