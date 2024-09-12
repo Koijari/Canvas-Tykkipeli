@@ -17,14 +17,15 @@
     <div id="etusivu">
         <div id="pelaajat">            
             <label for="p1">Pelaaja1</label>
-            <input type="text" id="p1" name="p1" required maxlength="6" size="6" onfocus="">
+            <input type="text" id="p1" name="p1" required maxlength="6" size="6">
             <label for="p2">Pelaaja2</label>
             <input type="text" id="p2" name="p1" required maxlength="6" size="6"><br>
-            <button onclick="tallennaNimet()">Pelaa!</a></button>
+            <button>1 kierros</button>
+            <button onclick="tallennaNimet()">Pelaa!</button>
         </div>
     </div>    
 
-    <footer>Thanks for music and sounds to www.fesliyanstudios.com</footer>
+    <footer>Thanks for the music and sounds to www.fesliyanstudios.com</footer>
 
     <Script>
         // painike ja elementti DOMissa
@@ -41,15 +42,15 @@
                 soittoNappi.innerHTML = '&#x1F507;'; // ääni pois
             } else {
                 aaniElementti.play(); // Soitetaan ääni
-                soittoNappi.innerHTML = '&#x1F50A;'; // ääni päällä
+                soittoNappi.innerHTML = '&#x1F50A;';
             }
-            soittoSoi = !soittoSoi;
+            soittoSoi = !soittoSoi; //tilan vaihto
         });
 
         // painikkeen kuvake päivittyy kun pärinä loppuu
         aaniElementti.addEventListener('ended', function() {
             soittoNappi.innerHTML = '&#x1F507;'; // ääni pois
-            soittoSoi = false; // tilaksi false
+            soittoSoi = false;
         });
 
         // Pelaajanimet etusivulta
@@ -68,5 +69,4 @@
     </Script>
 
 </body>
-</html>
 </html>
