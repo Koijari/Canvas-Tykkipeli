@@ -19,10 +19,6 @@ const aanet = {
     'tausta': new Audio('aanet/StartPage.mp3')
 };
 
-/*testiarvot
-const painovoima = 0.6;
-const kitka = 0.99;*/
-
 let osumaTykkiin = false;//estämään tuplaosumat
 
 // maaston koordinaattipisteet
@@ -61,7 +57,8 @@ class TykinPutki {
         piirtoCtx.moveTo(this.x, this.y);
         const tykin_putkiX = this.x + Math.cos(this.kulma * Math.PI / 180) * this.angl;
         const tykin_putkiY = this.y - Math.sin(this.kulma * Math.PI / 180) * 40;
-        piirtoCtx.lineTo(tykin_putkiX+5, tykin_putkiY-20);
+        piirtoCtx.lineTo(tykin_putkiX+5, tykin_putkiY-30);
+        piirtoCtx.strokeStyle = 'red';
         piirtoCtx.stroke();
     }
     //uusi kulma säätöä varten
@@ -151,10 +148,10 @@ class Ammus {
             kenttaCtx.globalCompositeOperation = 'source-over';
     
             //  räjähdyskuva
-            const rajahdyskuva = new Image();
+            const rajahdyskuva = new Image()
             rajahdyskuva.src = 'kuvat/blast.gif'; 
+
             rajahdyskuva.onload = () => {
-                // räjähdyskuva
                 
                 tykkiCtx.drawImage(rajahdyskuva, this.x - 40, terrainHeight - 40, 100, 100);
                 aanet.laukaus.play();
@@ -190,9 +187,7 @@ class Ammus {
             tykkiCtx.fillStyle = "red"; //ilmoitus ko. asiasta            
                 
             pelaajat[vastustaja].osumat++;  // Lisätään yksi osuma
-            
-            checkWin();
-            
+
             if(vastustaja ==='pelaaja1'){
                 tykkiCtx.clearRect(tykkiCanvas.width *0.2, 30, 160,60);
                 tykkiCtx.fillText(`Osumat ${pelaajat[vastustaja].nimi}: ${pelaajat[vastustaja].osumat}`, tykkiCanvas.width *0.2, tykkiCanvas.height *0.1);
@@ -205,7 +200,7 @@ class Ammus {
             }            
 
             setTimeout(()=>{
-                tykkiCtx.clearRect(tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.25,200,100)  ;
+                tykkiCtx.clearRect(tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.25,200,100);
                 osumaTykkiin = false; 
             },2000);
             
@@ -220,24 +215,21 @@ class Ammus {
                 // räjähdyskuva
                 
                 setTimeout( () => {
-                    tykkiCtx.drawImage(romu, tykkiX, tykkiY-20, 60, 60);
+                    tykkiCtx.drawImage(romu, tykkiX, tykkiY, 80, 60);
                 }, 2000);
                 
                 
                 
                 setTimeout(() => {
-                    tykkiCtx.clearRect(tykkiX, tykkiY-20, 100, 100);
+                    tykkiCtx.clearRect(tykkiX, tykkiY, 100, 100);
                 }, 4000);
             };
             setTimeout( () => {
                 kenttaCtx.clearRect(0,0, kenttaCanvas.width, kenttaCanvas.height);
                 drawTerrain();
                 kanuuna.onload();
-            }, 5000);
-            
-        
-        };
-        
+            }, 5000);        
+        };        
     };
 };
 
@@ -365,7 +357,7 @@ function drawTerrain(){
         
         //toka lavetti (peilikuva)
         tykkiCtx.font = "bold 20px Comic sans MS";
-        tykkiCtx.fillText(pelaajat.pelaaja2['nimi'], kenttaCanvas.width*0.95, kenttaCanvas.height*0.85);
+        tykkiCtx.fillText(pelaajat.pelaaja2.nimi, kenttaCanvas.width*0.95, kenttaCanvas.height*0.85);
         tykinPutki2.draw();     
 }
 
@@ -382,7 +374,7 @@ kanuuna.onload = function() {
     tykkiCtx.scale(-1, 1);  // peilikuva
     
     // peilikuva paikkaan tykki2
-    tykkiCtx.drawImage(kanuuna, -pelaajat.pelaaja2.lavetti[0], pelaajat.pelaaja2.lavetti[1], imgWidth, imgHeight);
+    tykkiCtx.drawImage(kanuuna, -pelaajat.pelaaja2.lavetti[0], pelaajat.pelaaja2.lavetti[1], -imgWidth, imgHeight);
 
     tykkiCtx.restore();  // Palauta alkuperäinen tila
 }
@@ -420,43 +412,6 @@ window.addEventListener('DOMContentLoaded', () => {
     drawTerrain();  // tee uusi kenttä
 });
 
-function checkWin() {
-    if (pelaajat.pelaaja1.osumat >= 3) {
-        showWin(pelaajat.pelaaja1.nimi);
-    } else if (pelaajat.pelaaja2.osumat >= 3) {
-        showWin(pelaajat.pelaaja2.nimi);
-    }
-}
-function showWin(voittaja){
-    document.body.innerHTML = '';
-
-    
-    const voittoIlmoitus = document.createElement('div');
-    voittoIlmoitus.id = "winMessage";
-    voittoIlmoitus.style.display = 'flex';
-    voittoIlmoitus.style.flexDirection = 'column';
-    voittoIlmoitus.style.justifyContent = 'center';
-    voittoIlmoitus.style.alignItems = 'center';
-    
-    voittoIlmoitus.style.fontSize = '48px';
-    voittoIlmoitus.style.color = 'yellow';
-    
-    voittoIlmoitus.style.backgroundColor = 'black';
-
-    voittoIlmoitus.innerHTML = `
-        <h1>${voittaja} voitti pelin!</h1>
-        <button id="aloitaUudelleen" style="padding: 10px 20px; font-size: 24px; cursor: pointer;">Aloita Uudelleen</button>
-    `;
-
-    
-    document.body.appendChild(voittoIlmoitus);
-
-    
-    document.getElementById('aloitaUudelleen').addEventListener('click', function() {
-        location.reload(); 
-    });
-}
-
 // loop
 function gameLoop() {
     piirtoCtx.clearRect(0, 0, piirtoCanvas.width, piirtoCanvas.height);
@@ -473,8 +428,7 @@ function gameLoop() {
             ammukset.splice(index, 1);
             tykinPutki1.setAngle(45);
             tykinPutki2.setAngle(45);
-        }
-        
+        }        
     });
 
     requestAnimationFrame(gameLoop);
