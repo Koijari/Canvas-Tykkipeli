@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,6 @@
         body, html {
             display: flex;
             justify-content: center;
-            
         }
         #arvot {     
             position: fixed;
@@ -30,29 +29,22 @@
             position: absolute;
             left: 0;
             top: 0;
-            /*border: 1px solid black;*/
         }
     </style>
     
 </head>
 <body>
 
-    <div style="display:none;">
-        <img id="tykki1" width="50" height="50" src="kuvat/lavetti.png">
-        <img id="tykki2" width="50" height="50" src="kuvat/lavetti2.png">
-    </div>
-
-    <!--väri on nyt määritelty tähän,  siirtääkö css tiedostoon-->
     <canvas id="kenttaCanvas" style="background-color: skyblue" ></canvas>    
     <canvas id="piirtoCanvas"></canvas>
     <canvas id="tykkiCanvas"></canvas>
 
     <div id="arvot">
-        <input type="number" id="kulma" placeholder="Kulma" required>
-        <input type="number" id="ruuti" placeholder="Ruuti" required>
-        <button type="submit" onclick="tallennaArvot()">Aseta + Enter</button>
+        <input type="number" id="kulma" placeholder="Kulma" size="4" required>
+        <input type="number" id="ruuti" placeholder="Ruuti" size="4" required>
+        <button type="submit" onclick="tallennaArvot()">Aseta kulma ja ruuti</button>
         <button id="paluu">Etusivu</button>
-    </div>   
+    </div>
 
     <script src="kenttaJaPinta2.js"></script>
 </body>
