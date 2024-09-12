@@ -1,13 +1,12 @@
 
-
 const kenttaCanvas = document.getElementById('kenttaCanvas'); //Pohjacanvas
 const kenttaCtx = kenttaCanvas.getContext('2d');
 const piirtoCanvas = document.getElementById('piirtoCanvas'); //pintacanvas
 const piirtoCtx = piirtoCanvas.getContext('2d');
-const kanuuna1 = document.getElementById("tykki1");
-const kanuuna2 = document.getElementById("tykki2");
 const tykkiCanvas = document.getElementById('tykkiCanvas');
 const tykkiCtx = tykkiCanvas.getContext('2d');
+const kanuuna = new Image();
+kanuuna.src = 'kuvat/tykki.png';
 
 const painovoima = 9.81;
 const kitka = 1 + Math.random()/10;
@@ -32,10 +31,10 @@ let ammukset = [];
 
 function resizeCanvas(){ //cancaksen koko on sama kuin ikkunan koko
     kenttaCanvas.width = window.innerWidth;
-    kenttaCanvas.height = window.innerHeight*0.92; //korkeutta muutettu, syöttökentät mahtuu ruutuun
+    kenttaCanvas.height = 2*window.innerWidth/5; //korkeutta muutettu, syöttökentät mahtuu ruutuun
     piirtoCanvas.width = window.innerWidth;
-    piirtoCanvas.height = window.innerHeight*0.92;
-    tykkiCanvas.height = window.innerHeight*0.92;
+    piirtoCanvas.height = 2*window.innerWidth/5;
+    tykkiCanvas.height = 2*window.innerWidth/5;
     tykkiCanvas.width = window.innerWidth;
 }
 
@@ -56,12 +55,12 @@ class TykinPutki {
     }
     //tykin putken piirto
     draw() {
-        piirtoCtx.lineWidth = 10;
+        piirtoCtx.lineWidth = 1;
         piirtoCtx.beginPath();
         piirtoCtx.moveTo(this.x, this.y);
         const tykin_putkiX = this.x + Math.cos(this.kulma * Math.PI / 180) * this.angl;
         const tykin_putkiY = this.y - Math.sin(this.kulma * Math.PI / 180) * 40;
-        piirtoCtx.lineTo(tykin_putkiX, tykin_putkiY);
+        piirtoCtx.lineTo(tykin_putkiX+5, tykin_putkiY-20);
         piirtoCtx.stroke();
     }
     //uusi kulma säätöä varten
@@ -78,19 +77,20 @@ const tykinPutki1 = new TykinPutki(tykkiCanvas.width*0.05, tykkiCanvas.height*0.
 const tykinPutki2 = new TykinPutki(tykkiCanvas.width*0.945, tykkiCanvas.height*0.97, -60);
 
 const pelaajat = {
-     pelaaja1 : {
-        'nimi': sessionStorage.getItem('p1'),
-        'lavetti': [piirtoCanvas.width*0.04, piirtoCanvas.height*0.91],
-        'putki': tykinPutki1,
-        'osumat': 0
-    },
-    pelaaja2 : {
-        'nimi': sessionStorage.getItem('p2'),
-        'lavetti': [piirtoCanvas.width*0.92, piirtoCanvas.height*0.91],
-        'putki': tykinPutki2,
-        'osumat': 0
-    }
+    pelaaja1 : {
+       'nimi': sessionStorage.getItem('p1'),
+       'lavetti': [piirtoCanvas.width*0.04, piirtoCanvas.height*0.9],
+       'putki': tykinPutki1,
+       'osumat': 0
+   },
+   pelaaja2 : {
+       'nimi': sessionStorage.getItem('p2'),
+       'lavetti': [piirtoCanvas.width*0.96, piirtoCanvas.height*0.9],
+       'putki': tykinPutki2,
+       'osumat': 0
+   }
 }
+
 let pelaajaNyt = pelaajat.pelaaja1;
 tykkiCtx.font = "bold 20px Comic sans MS";
 tykkiCtx.fillStyle = 'yellow';
@@ -99,7 +99,7 @@ tykkiCtx.fillText(pelaajaNyt.nimi+'n vuoro', tykkiCanvas.width*0.45, tykkiCanvas
 // Vuoronvaihtofunktio
 function vuoronVaihto() {    
     pelaajaNyt = pelaajaNyt === pelaajat.pelaaja1 ? pelaajat.pelaaja2 : pelaajat.pelaaja1;
-    console.log(pelaajaNyt.nimi + "n vuoro.");
+    //console.log(pelaajaNyt.nimi + "n vuoro.");
 
     //pelaaja vuoro ruudulla
     tykkiCtx.clearRect(tykkiCanvas.width*0.40, tykkiCanvas.height*0.9, 200, 400)
@@ -178,8 +178,7 @@ class Ammus {
             const tykkiX = tykin_sijainti[0];
             const tykkiY = tykin_sijainti[1];
             const tykkiWidth = 200;  // Tykin leveys
-            const tykkiHeight = 200; // Tykin korkeus
-    
+            const tykkiHeight = 200; // Tykin korkeus    
         
         // Tarkistetaan, osuuko ammus tykkiin 
         if (this.x > tykkiX && this.x < tykkiX + tykkiWidth &&
@@ -187,9 +186,7 @@ class Ammus {
             let vastustaja = pelaaja === 'pelaaja1' ? 'pelaaja2' : 'pelaaja1';//vastustajan selvittäminen
 
             osumaTykkiin = true;
-            tykkiCtx.fillStyle = "red"; //ilmoitus ko. asiasta
-            
-            
+            tykkiCtx.fillStyle = "red"; //ilmoitus ko. asiasta            
                 
             pelaajat[vastustaja].osumat++;  // Lisätään yksi osuma
 
@@ -202,21 +199,29 @@ class Ammus {
                 tykkiCtx.clearRect(tykkiCanvas.width- tykkiCanvas.width *0.2,30,160,60 );
                 tykkiCtx.fillText(`Osumat ${pelaajat[vastustaja].nimi}: ${pelaajat[vastustaja].osumat}`,
                      tykkiCanvas.width- tykkiCanvas.width *0.2,  tykkiCanvas.height *0.1);
-            }
-            
+            }            
 
             setTimeout(()=>{
 
             tykkiCtx.clearRect(tykkiCanvas.width*0.45 ,tykkiCanvas.height *0.25,200,100)  ;
             osumaTykkiin = false; 
-            },2000);
-
-            
+            },2000);            
             
             //
             tykkiCtx.clearRect(tykkiX, tykkiY, tykkiWidth, tykkiHeight);
             //Tähän se romutettu tykki?
-        
+            const romu = new Image()
+            romu.src = 'kuvat/potslojo2.png';
+            romu.onload = () => {
+                // osumakuva
+                
+                tykkiCtx.drawImage(romu, this.x - 40, terrainHeight - 40, 100, 100);
+                aanet.osuma.play();
+                
+                setTimeout(() => {
+                    tykkiCtx.clearRect(this.x - 40, terrainHeight - 40, 100, 100);
+                }, 2000);
+            };
         }
     }
 }
@@ -236,8 +241,7 @@ function tallennaArvot() {
         tykinPutki2.setAngle(kulma);
         piirtoCtx.clearRect(0,0,kenttaCanvas.width,kenttaCanvas.height);
         tykinPutki2.draw();
-    }
-    
+    }    
 }
 
 document.addEventListener('keydown', function(event) {
@@ -246,8 +250,7 @@ document.addEventListener('keydown', function(event) {
         if (pelaajaNyt === pelaajat.pelaaja1) {
             const ammus = new Ammus(tykinPutki1.x, tykinPutki1.y - 10, kulma || tykinPutki1.kulma, ruuti || tykinPutki1.ruuti);
             ammukset.push(ammus);
-            vuoronVaihto();
-        
+            vuoronVaihto();        
 
         } else if (pelaajaNyt === pelaajat.pelaaja2) {
             const ammus = new Ammus(tykinPutki2.x, tykinPutki2.y - 10, kulma || tykinPutki2.kulma, ruuti || tykinPutki2.ruuti);
@@ -257,12 +260,7 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-
-
 function drawTerrain(){
-    
-
-
     
     const kenttakuvat = ['kuvat/sora.png','kuvat/ruoho.png','kuvat/ruoho3.png','kuvat/kivi.png','kuvat/hiekka.png'];
     
@@ -295,7 +293,6 @@ function drawTerrain(){
          
          const kuvio = kenttaCtx.createPattern(kenttaKuva, 'repeat');
 
-
         //rekvisiitta-aurinko, siirretty, ettei tule vuoren tai pilven päälle
         kenttaCtx.beginPath();
         kenttaCtx.arc(Math.random() * kenttaCanvas.width ,100,40,0,2*Math.PI);
@@ -326,7 +323,6 @@ function drawTerrain(){
             kenttaCtx.lineTo(pisteet[i].x, pisteet[i].y);
             terrainPoints.push(pisteet[i]); // maaston pisteet tallennetaan
         }
-
         
         // viivan piirto pisteestä toiseen
         for (let i = 1; i < pisteet.length; i++) {
@@ -349,16 +345,29 @@ function drawTerrain(){
         tykkiCtx.fillStyle = 'red';
         tykkiCtx.fillText(pelaajat.pelaaja1.nimi, kenttaCanvas.width*0.01, kenttaCanvas.height*0.895);
         tykinPutki1.draw();
-        tykkiCtx.drawImage(kanuuna1, pelaajat.pelaaja1.lavetti[0], pelaajat.pelaaja1.lavetti[1], 40, 40);
         
         //toka lavetti (peilikuva)
         tykkiCtx.font = "bold 20px Comic sans MS";
         tykkiCtx.fillText(pelaajat.pelaaja2['nimi'], kenttaCanvas.width*0.95, kenttaCanvas.height*0.895);
-        tykinPutki2.draw();
-        tykkiCtx.drawImage(kanuuna2, pelaajat.pelaaja2.lavetti[0], pelaajat.pelaaja2.lavetti[1], 40, 40);
+        tykinPutki2.draw();     
+}
 
+kanuuna.onload = function() {
+    const imgWidth = 50;
+    const imgHeight = 50;
+
+    // Piirrä alkuperäinen kuva
+    tykkiCtx.drawImage(kanuuna, pelaajat.pelaaja1.lavetti[0], pelaajat.pelaaja1.lavetti[1], imgWidth, imgHeight);
+
+    // Peilikuvan piirtäminen
+    tykkiCtx.save();  // ei skaalata alkuperäistä
+
+    tykkiCtx.scale(-1, 1);  // peilikuva
     
-     
+    // peilikuva paikkaan tykki2
+    tykkiCtx.drawImage(kanuuna, -pelaajat.pelaaja2.lavetti[0], pelaajat.pelaaja2.lavetti[1], imgWidth, imgHeight);
+
+    tykkiCtx.restore();  // Palauta alkuperäinen tila
 }
 
 function getTerrainHeightAt(x) {
@@ -409,6 +418,7 @@ function gameLoop() {
         if (ammus.checkCollision()) {
             ammukset.splice(index, 1);
             tykinPutki1.setAngle(45);
+            tykinPutki2.setAngle(45);
         }
         
     });
@@ -421,6 +431,4 @@ document.getElementById('paluu').addEventListener('click', () => {
     window.location.href = 'index.html';
 });
 
-
 gameLoop();
-
