@@ -437,7 +437,7 @@ function showWin(voittaja){
 
     voittoIlmoitus.innerHTML = `
         <h1>${voittaja} voitti pelin!</h1>
-        <button id="aloitaUudelleen" style="padding: 10px 20px; font-size: 24px; cursor: pointer;">Aloita Uudelleen</button>
+        <button id="aloitaUudelleen" style="padding: 10px 20px; font-size: 24px; cursor: pointer;">Aloita uusi peli</button>
     `;
     
     document.body.appendChild(voittoIlmoitus);
