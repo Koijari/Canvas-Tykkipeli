@@ -1,8 +1,8 @@
-##CanvasAPI projektityö: Tykkipeli
+CanvasAPI projektityö: Tykkipeli
 
-##Suunnittelu-, väli- ja loppupalaverit:  4 tuntia
+Suunnittelu-, väli- ja loppupalaverit:  4 tuntia
 
-##Jannen tunnit:
+Jannen tunnit:
   -Opiskelu(W3S, ohjevideot):       15 tuntia
   -Muotoilu (css, html) ja kuvat:   10 tuntia
   -Pelimekaniikka ja koodaaminen:   22 tuntia
