@@ -15,3 +15,23 @@ Jannen tunnit:
             äänisuunnittelu, fysiikkamallinnus (puoliksi), vakioiden ja muuttujien yhtenäistäminen
 
 Apuna: W3Schools, StackOverflow, MDN, GeeksForGeeks ja tärkeimpänä Mika
+
+## Työaika Mika
+
+- Noin 4 tuntia päivässä + varmaan 4 viikonloppuna eli yhteensä 44  tuntia.
+- Osa meni tiedon hakuun ja osa tekemiseen, myös testaus ja ongelmien korjaus otti aikansa.
+
+### Tehtävät:
+- Vauriomallinnus
+- Fysiikkamallinnusta
+- Kulman säätö painikkeella (tämä myöhemmin muutettiin)
+- Kentän ja taustojen generointi
+- Kentän kuvatiedostot
+- Voittoruutu
+
+### Kommentit:
+Minulla oli mielessä klassinen tykkipeli, onneksi meillä oli samanlainen näkemys asiasta ja olen aika tyytyväinen lopputulokseen. Toki tätä varmasti vielä parantelemme jatkossa jaksamisen mukaan.
+
+Koodin olisi voinut laittaa useampaan tiedostoon, mutta se olisi pitänyt tehdä mieluummin jo alussa, koko pötkön paloittelu olisi nyt vienyt taas ylimääräistä aikaa.
+
+Hyvä oppimisprojekti ja meillä oli vahva tekemisen meininki!
