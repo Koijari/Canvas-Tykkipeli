@@ -21,6 +21,10 @@
             color: yellow;
             margin: 0 4px;
         }
+        span {
+            font-family: Comic sans MS;
+            color: antiquewhite;
+        }
         button:active {
             background-color: yellow;
             color: black;
@@ -30,29 +34,6 @@
             left: 0;
             top: 0;
         }
-        #winMessage{
-        position: absolute;
-        font-size: 5em;
-        font-family: 'Comic Sans Ms', 'sans-serif';
-        left: 25%;
-        top: 30%;
-        animation-name: voitto;
-        animation-duration: 10s;
-        animation-iteration-count: 1;
-        animation-timing-function: ease-in-out;
-        background-color: lightgreen;
-        z-index: 2;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    }
-        @keyframes voitto {
-            0% {color: #04AA6D;  ;transform: scale(2, 3); }
-            25%{color: #2fe096;}
-            50%{color:aqua}
-            75%{color: #e6810f;transform: rotate(20deg)}
-            100%{color: rgb(233, 28, 14); transform: rotate(-20deg)}
-    
-    }
-    
     </style>
     
 </head>
@@ -65,7 +46,8 @@
     <div id="arvot">
         <input type="number" id="kulma" placeholder="Kulma" size="4" required>
         <input type="number" id="ruuti" placeholder="Ruuti" size="4" required>
-        <button type="submit" onclick="tallennaArvot()">Aseta kulma ja ruuti</button>
+        <button type="submit" onclick="tallennaArvot()">Vahvista kulma ja ruuti</button>
+        <span> + Enter</span>
         <button id="paluu">Etusivu</button>
     </div>
 
