@@ -1,4 +1,3 @@
-
 const kenttaCanvas = document.getElementById('kenttaCanvas'); //Pohjacanvas
 const kenttaCtx = kenttaCanvas.getContext('2d');
 const piirtoCanvas = document.getElementById('piirtoCanvas'); //pintacanvas
@@ -7,7 +6,6 @@ const tykkiCanvas = document.getElementById('tykkiCanvas');
 const tykkiCtx = tykkiCanvas.getContext('2d');
 const kanuuna = new Image();
 kanuuna.src = 'kuvat/tykki.png';
-
 
 const painovoima = 9.81;
 let kitka = 1 + Math.random()/10;
@@ -22,7 +20,7 @@ const aanet = {
 let osumaTykkiin = false;//estämään tuplaosumat
 
 // maaston koordinaattipisteet
-const terrainPoints = [];
+let terrainPoints = [];
 
 let ammukset = [];
 
@@ -50,14 +48,14 @@ class TykinPutki {
         this.kulma = 45;
         this.ruuti = 0;
     }
-    //tykin putken piirto
+    //tähtäimen piirto
     draw() {
         piirtoCtx.lineWidth = 1;
         piirtoCtx.beginPath();
         piirtoCtx.moveTo(this.x, this.y);
         const tykin_putkiX = this.x + Math.cos(this.kulma * Math.PI / 180) * this.angl;
         const tykin_putkiY = this.y - Math.sin(this.kulma * Math.PI / 180) * 40;
-        piirtoCtx.lineTo(tykin_putkiX+5, tykin_putkiY-30);
+        piirtoCtx.lineTo(tykin_putkiX+10, tykin_putkiY-40);
         piirtoCtx.strokeStyle = 'red';
         piirtoCtx.stroke();
     }
@@ -69,7 +67,7 @@ class TykinPutki {
     setPower(uusiRuuti){
         this.ruuti = uusiRuuti;
     }
-}
+};
 
 const tykinPutki1 = new TykinPutki(tykkiCanvas.width*0.055, tykkiCanvas.height*0.94, 60);
 const tykinPutki2 = new TykinPutki(tykkiCanvas.width*0.945, tykkiCanvas.height*0.94, -60);
@@ -87,7 +85,7 @@ const pelaajat = {
        'putki': tykinPutki2,
        'osumat': 0
    }
-}
+};
 
 let pelaajaNyt = pelaajat.pelaaja1;
 tykkiCtx.font = "bold 20px Comic sans MS";
@@ -149,7 +147,8 @@ class Ammus {
     
             //  räjähdyskuva
             const rajahdyskuva = new Image()
-            rajahdyskuva.src = 'kuvat/blast.gif'; 
+            rajahdyskuva.src = 'kuvat/blast.gif';
+            
 
             rajahdyskuva.onload = () => {
                 
@@ -164,11 +163,12 @@ class Ammus {
             // Tarkista osuma toiseen tykkiin
             this.checkCollision_Tykki(pelaajat.pelaaja1.lavetti,'pelaaja1');
             this.checkCollision_Tykki(pelaajat.pelaaja2.lavetti,'pelaaja2');
-    
+            
             return true;
         }
         return false;
-    }
+    };
+
     checkCollision_Tykki(tykin_sijainti, pelaaja) { //Törmys toiseen tykkiin
         if (osumaTykkiin) {
             return; // estää tuplaosuman
@@ -187,7 +187,7 @@ class Ammus {
             tykkiCtx.fillStyle = "red"; //ilmoitus ko. asiasta            
                 
             pelaajat[vastustaja].osumat++;  // Lisätään yksi osuma
-            checkWin(); //tuliko voitto?
+            
 
             if(vastustaja ==='pelaaja1'){
                 tykkiCtx.clearRect(tykkiCanvas.width *0.2, 30, 160,60);
@@ -213,23 +213,24 @@ class Ammus {
             romu.src = 'kuvat/potslojo2.png';
             
             romu.onload = () => {
-                // räjähdyskuva
                 
                 setTimeout( () => {
-                    tykkiCtx.drawImage(romu, tykkiX, tykkiY, 80, 60);
-                }, 2000);
-                
-                
+                    tykkiCtx.drawImage(romu, tykkiX, tykkiY - 20, 80, 60);
+                }, 2000);                
                 
                 setTimeout(() => {
-                    tykkiCtx.clearRect(tykkiX, tykkiY, 100, 100);
+                    tykkiCtx.clearRect(tykkiX, tykkiY - 20, 100, 100);
                 }, 4000);
             };
+
             setTimeout( () => {
+                checkWin(); //tuliko voitto?
                 kenttaCtx.clearRect(0,0, kenttaCanvas.width, kenttaCanvas.height);
-                drawTerrain();
+                kitka = 1 + Math.random()/10; // osuman jälkeen fysiikka muuttuu
+                terrainPoints = []; //nollataan vanhan vuoren piirtopisteet
                 kanuuna.onload();
-            }, 5000);        
+                drawTerrain();
+            }, 5000); 
         };        
     };
 };
@@ -243,11 +244,11 @@ function tallennaArvot() {
     document.getElementById('ruuti').value = '';
     if (pelaajaNyt === pelaajat.pelaaja1) {
         tykinPutki1.setAngle(kulma);    
-        piirtoCtx.clearRect(0,0,kenttaCanvas.width,kenttaCanvas.height);
+        piirtoCtx.clearRect(0,0,piirtoCanvas.width,piirtoCanvas.height);
         tykinPutki1.draw();
     } else {
         tykinPutki2.setAngle(kulma);
-        piirtoCtx.clearRect(0,0,kenttaCanvas.width,kenttaCanvas.height);
+        piirtoCtx.clearRect(0,0,piirtoCanvas.width,piirtoCanvas.height);
         tykinPutki2.draw();
     }    
 }
@@ -270,7 +271,12 @@ document.addEventListener('keydown', function(event) {
 
 function drawTerrain(){
 
-    kitka = 1 + Math.random()/10;
+    //rekvisiitta-aurinko, siirretty, ettei tule vuoren tai pilven päälle
+    kenttaCtx.beginPath();
+    kenttaCtx.arc(Math.random() * kenttaCanvas.width ,100,40,0,2*Math.PI);
+    kenttaCtx.fillStyle = "yellow";
+    kenttaCtx.fill();
+    kenttaCtx.stroke();
     
     const kenttakuvat = ['kuvat/sora.png','kuvat/ruoho.png','kuvat/ruoho3.png','kuvat/kivi.png','kuvat/hiekka.png'];
     
@@ -301,16 +307,7 @@ function drawTerrain(){
     }
      kenttaKuva.onload = () => {
          
-         const kuvio = kenttaCtx.createPattern(kenttaKuva, 'repeat');
-
-        //rekvisiitta-aurinko, siirretty, ettei tule vuoren tai pilven päälle
-        kenttaCtx.beginPath();
-        kenttaCtx.arc(Math.random() * kenttaCanvas.width ,100,40,0,2*Math.PI);
-        kenttaCtx.fillStyle = "yellow";
-        kenttaCtx.fill();
-        kenttaCtx.stroke();
-
-        drawCloud(Math.random()*(kenttaCanvas.width-40), 100, 40); //piirrä pilvi parametrien mukaan    
+        const kuvio = kenttaCtx.createPattern(kenttaKuva, 'repeat');
 
         // koordinaatit
         const pisteet = [
@@ -347,8 +344,10 @@ function drawTerrain(){
         // kentän täyttö
         kenttaCtx.fillStyle = kuvio;
         kenttaCtx.fill();
-        }
-        drawCloud(Math.random()*(kenttaCanvas.width-60), 100, 60); //toinenki pilvi
+        };
+
+        drawCloud(Math.random()*(kenttaCanvas.width-40), 100, 40); //piirrä pilvi parametrien mukaan 
+        drawCloud(Math.random()*(kenttaCanvas.width-60), 100, 50); //toinenki pilvi
         
         //eka lavetti ja pelaajanimi
         tykkiCtx.font = "bold 20px Comic sans MS";
@@ -356,25 +355,25 @@ function drawTerrain(){
         tykkiCtx.fillText(pelaajat.pelaaja1.nimi, kenttaCanvas.width*0.01, kenttaCanvas.height*0.85);
         tykinPutki1.draw();
         
-        //toka lavetti (peilikuva)
+        //toka lavetti, nimi ja peilikuva
         tykkiCtx.font = "bold 20px Comic sans MS";
         tykkiCtx.fillText(pelaajat.pelaaja2.nimi, kenttaCanvas.width*0.95, kenttaCanvas.height*0.85);
         tykinPutki2.draw();     
 }
 
-kanuuna.onload = function() {
+kanuuna.onload = () => {
     const imgWidth = 50;
     const imgHeight = 50;
 
-    // Piirrä alkuperäinen kuva
+    // Piirrä alkuperäinen kuva paikkaan 1
     tykkiCtx.drawImage(kanuuna, pelaajat.pelaaja1.lavetti[0], pelaajat.pelaaja1.lavetti[1], imgWidth, imgHeight);
 
     // Peilikuvan piirtäminen
-    tykkiCtx.save();  // ei skaalata alkuperäistä
+    tykkiCtx.save();
 
-    tykkiCtx.scale(-1, 1);  // peilikuva
+    tykkiCtx.scale(-1, 1);
     
-    // peilikuva paikkaan tykki2
+    // peilikuva paikkaan 2
     tykkiCtx.drawImage(kanuuna, -pelaajat.pelaaja2.lavetti[0], pelaajat.pelaaja2.lavetti[1], -imgWidth, imgHeight);
 
     tykkiCtx.restore();  // Palauta alkuperäinen tila
@@ -391,7 +390,7 @@ function getTerrainHeightAt(x) {
         }
     }
     return piirtoCanvas.height; // Oletuskorkeus, jos x-koordinaatti on kentän ulkopuolella
-}
+};
 
 //piirretään pilvi
 function drawCloud(x, y, koko) {
@@ -419,10 +418,10 @@ function checkWin() {
     } else if (pelaajat.pelaaja2.osumat >= 3) {
         showWin(pelaajat.pelaaja2.nimi);
     }
-}
+};
+
 function showWin(voittaja){
     document.body.innerHTML = '';
-
     
     const voittoIlmoitus = document.createElement('div');
     voittoIlmoitus.id = "winMessage";
@@ -440,16 +439,13 @@ function showWin(voittaja){
         <h1>${voittaja} voitti pelin!</h1>
         <button id="aloitaUudelleen" style="padding: 10px 20px; font-size: 24px; cursor: pointer;">Aloita Uudelleen</button>
     `;
-
     
     document.body.appendChild(voittoIlmoitus);
-
     
     document.getElementById('aloitaUudelleen').addEventListener('click', function() {
         location.reload(); 
     });
-}
-
+};
 
 // loop
 function gameLoop() {
